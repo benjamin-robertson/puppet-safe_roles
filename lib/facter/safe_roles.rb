@@ -2,7 +2,7 @@
 role = Facter.value(:role)
 if role
   safe_role = role.gsub(/:/, '_')
-  Facter.add(:safe_role)
+  Facter.add(:safe_role) do
     setcode do
       safe_role
     end
@@ -13,7 +13,7 @@ end
 #
 # I'm in a hurry - here's how to do it
 # pp_role -> safe_pp_role
-#pp_role = 
+#pp_role =
   # certname = Facter::Core::Execution.exec(
   #  "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Facter.value(:fqdn).downcase}.pem | awk -F'=' '/Subject: CN/ {print $2}'"
 #).strip
