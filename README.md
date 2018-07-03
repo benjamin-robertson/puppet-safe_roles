@@ -14,26 +14,32 @@
 
 ## Description
 
-Just a very simple module to convert a role fact `role` into a `safe_role` fact by converting any colons in the value into underscores.  This lets us write `hiera.yaml` files that look like this:
+Just a very simple module to convert:
+
+* A role fact `role` into a `safe_role` 
+* A trusted fact role `pp_role` into `safe_pp_role`
+
+The conversion process is to convert any colons in the value into underscores.
+
+This lets us write `hiera.yaml` files that look like this:
 
 ```yaml
 :hierarchy:
-  - "nodes/%{clientcert}"
-  - "roles/%{safe_role}"
-  - "app_tier/%{app_tier}"
-  - "datacenter/%{datacenter}"
-  - "env/%{environment}"
-  - common
+  - "node/%{clientcert}".yaml
+  - "role/%{safe_role}".yaml
+  - "app_tier/%{app_tier}".yaml
+  - "datacenter/%{datacenter}".yaml
+  - "env/%{environment}".yaml
+  - common.yaml
 ```
 
-...So that for a role class `foo::bar::baz` we attempt to read `foo__bar__baz.yaml`.  Of course `::` in filenames is a terrible idea but it works at a push on Linux.  For those not living the dream, using this character in filenames will result in git repositories that are impossible to checkout from git.
+...So that for a role class `foo::bar::baz` we attempt to read `role/foo__bar__baz.yaml`.  Of course `::` in filenames is a terrible idea but it works at a push on Linux.  For those not living the dream, using this character in filenames will result in git repositories that are impossible to checkout from git.
 
 ## Setup
-Just install the module and if the a facter fact called `role` is detected it will be sanitised and made availabe in `safe_role`
+Just install the module and the facts will be created if applicable
 
 ## Limitations
-
-* Doesn't process `pp_role` (trusted fact) yet.  I may add this if I get a chance
+* TODO: windows support (powershell)
 
 ## Development
 
