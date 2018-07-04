@@ -87,36 +87,45 @@ module</a></p>
 
 <h2 id="label-Description">Description</h2>
 
-<p>Just a very simple module to convert a role fact <code>role</code> into a
-<code>safe_role</code> fact by converting any colons in the value into
-underscores. This lets us write <code>hiera.yaml</code> files that look
-like this:</p>
+<p>Just a very simple module to convert:</p>
+<ul><li>
+<p>A role fact <code>role</code> into a <code>safe_role</code></p>
+</li><li>
+<p>A trusted fact role <code>pp_role</code> into <code>safe_pp_role</code></p>
+</li></ul>
+
+<p>The conversion process is to convert double colons (<code>::</code>) into
+slashes (<code>/</code>).</p>
+
+<p>This lets us write <code>hiera.yaml</code> files that look like this:</p>
 
 <pre class="code ruby"><code class="ruby">:hierarchy:
-  - &quot;nodes/%{clientcert}&quot;
-  - &quot;roles/%{safe_role}&quot;
-  - &quot;app_tier/%{app_tier}&quot;
-  - &quot;datacenter/%{datacenter}&quot;
-  - &quot;env/%{environment}&quot;
-  - common
+  - &quot;node/%{clientcert}&quot;.yaml
+  - &quot;role/%{safe_role}&quot;.yaml
+  - &quot;app_tier/%{app_tier}&quot;.yaml
+  - &quot;datacenter/%{datacenter}&quot;.yaml
+  - &quot;env/%{environment}&quot;.yaml
+  - common.yaml
 </code></pre>
 
-<p>…So that for a role class <code>foo::bar::baz</code> we attempt to read
-<code>foo__bar__baz.yaml</code>. Of course <code>::</code> in filenames is
-a terrible idea but it works at a push on Linux. For those not living the
-dream, using this character in filenames will result in git repositories
-that are impossible to checkout from git.</p>
+<p>…So that for a node that has a <code>role</code> or <code>pp_role</code>
+role value of <code>foo::bar::baz</code> will attempt to read hiera data
+from <code>role/foo/bar/baz.yaml</code>. Of course <code>::</code> in
+filenames is a terrible idea but it works at a push on Linux. For those not
+living the dream, using this character in filenames will result in git
+repositories that are impossible to checkout from git, hence the need for
+this puppet module.</p>
 
 <h2 id="label-Setup">Setup</h2>
 
-<p>Just install the module and if the a facter fact called <code>role</code>
-is detected it will be sanitised and made availabe in
-<code>safe_role</code></p>
+<p>Just install the module and the facts will be created if applicable</p>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
-<p>Doesn&#39;t process <code>pp_role</code> (trusted fact) yet. I may add this
-if I get a chance</p>
+<p>TODO: windows support (powershell)</p>
+</li><li>
+<p>Linux for support requires <code>openssl</code> and <code>awk</code> in the
+path</p>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>

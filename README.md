@@ -19,7 +19,7 @@ Just a very simple module to convert:
 * A role fact `role` into a `safe_role` 
 * A trusted fact role `pp_role` into `safe_pp_role`
 
-The conversion process is to convert any colons in the value into underscores.
+The conversion process is to convert double colons (`::`) into slashes (`/`).
 
 This lets us write `hiera.yaml` files that look like this:
 
@@ -33,13 +33,17 @@ This lets us write `hiera.yaml` files that look like this:
   - common.yaml
 ```
 
-...So that for a role class `foo::bar::baz` we attempt to read `role/foo__bar__baz.yaml`.  Of course `::` in filenames is a terrible idea but it works at a push on Linux.  For those not living the dream, using this character in filenames will result in git repositories that are impossible to checkout from git.
+...So that for a node that has a `role` or `pp_role` role value of `foo::bar::baz` will attempt to read hiera data from
+`role/foo/bar/baz.yaml`.  Of course `::` in filenames is a terrible idea but it works at a push on Linux.  For those not
+living the dream, using this character in filenames will result in git repositories that are impossible to checkout from
+git, hence the need for this puppet module.
 
 ## Setup
 Just install the module and the facts will be created if applicable
 
 ## Limitations
 * TODO: windows support (powershell)
+* Linux for support requires `openssl` and `awk` in the path
 
 ## Development
 
