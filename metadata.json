@@ -1,8 +1,8 @@
 {
   "name": "geoffwilliams-safe_roles",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "geoffwilliams",
-  "summary": "refomat any `role` or `pp_role` fact into a safe fact with the colons replaced by underscores",
+  "summary": "refomat any `role` or `pp_role` fact into a filesystem path",
   "license": "Apache-2.0",
   "source": "https://github.com/GeoffWilliams/puppet-safe_roles",
   "project_page": "https://github.com/GeoffWilliams/puppet-safe_roles",
