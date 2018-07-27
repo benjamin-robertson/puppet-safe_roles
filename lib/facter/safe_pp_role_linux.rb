@@ -1,5 +1,8 @@
 require 'puppet'
 Facter.add(:safe_pp_role) do
+  confine :kernel do |value|
+    value != "windows"
+  end
 
   setcode do
     # pick out the custom OID for pp_role, convert `:` to `_` and strip the leading `..` from the capture
