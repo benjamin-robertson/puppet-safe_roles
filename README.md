@@ -32,7 +32,7 @@ This lets us write `hiera.yaml` files that look like this:
 ```yaml
 :hierarchy:
   - "node/%{clientcert}".yaml
-  - "%{safe_role}".yaml
+  - "os/%{safe_role}".yaml
   - "app_tier/%{app_tier}".yaml
   - "datacenter/%{datacenter}".yaml
   - "env/%{environment}".yaml
