@@ -88,6 +88,8 @@ module</a></p>
 <h2 id="label-Description">Description</h2>
 
 <p>Just a very simple module to convert:</p>
+
+<h3 id="label-roles">roles</h3>
 <ul><li>
 <p>A role fact <code>role</code> into a <code>safe_role</code></p>
 </li><li>
@@ -97,24 +99,43 @@ module</a></p>
 <p>The conversion process is to convert double colons (<code>::</code>) into
 slashes (<code>/</code>).</p>
 
+<h3 id="label-os">os</h3>
+<ul><li>
+<p>A normalised <code>safe_os</code> fact:</p>
+<ul><li>
+<p>All values lowercased (eg: <code>RedHat</code> -&gt; <code>redhat</code>)</p>
+</li><li>
+<p>All spaces removed from values (eg <code>2012 R2</code> -&gt;
+<code>2012_r2</code>)</p>
+</li></ul>
+</li></ul>
+
 <p>This lets us write <code>hiera.yaml</code> files that look like this:</p>
 
 <pre class="code ruby"><code class="ruby">:hierarchy:
   - &quot;node/%{clientcert}&quot;.yaml
-  - &quot;role/%{safe_role}&quot;.yaml
+  - &quot;%{safe_role}&quot;.yaml
   - &quot;app_tier/%{app_tier}&quot;.yaml
   - &quot;datacenter/%{datacenter}&quot;.yaml
   - &quot;env/%{environment}&quot;.yaml
+  - &quot;os/%{facts.safe_os.family}_%{facts.safe_os.release.major}.yaml&quot;
   - common.yaml
 </code></pre>
 
-<p>…So that for a node that has a <code>role</code> or <code>pp_role</code>
-role value of <code>foo::bar::baz</code> will attempt to read hiera data
-from <code>role/foo/bar/baz.yaml</code>. Of course <code>::</code> in
-filenames is a terrible idea but it works at a push on Linux. For those not
-living the dream, using this character in filenames will result in git
-repositories that are impossible to checkout from git, hence the need for
-this puppet module.</p>
+<p>This means that: * A node that has a <code>role</code> or
+<code>pp_role</code> value of <code>foo::bar::baz</code> will attempt to
+read hiera data from <code>role/foo/bar/baz.yaml</code> (instead of
+<code>role/foo::bar::baz.yaml</code>) * A windows 2012 R2 node would
+attempt to read from <code>os/windows_2012_r2.yaml</code> (instead of
+<code>os/windows_2012 R2.yaml</code>) * A RHEL 7 node would attempt to read
+read from <code>os/redhat_7.yaml</code> (instead of
+<code>os/RedHat_7.yaml</code>)</p>
+
+<p>This resolves the problems that: * <code>::</code> in filenames only works
+on linux * Windows and MacOS have case insensitive filesystems which can
+result in broken git repositories when files are checked  in accidentally
+that differ only by case * Filenames need spaces when dealing with some
+Windows variants</p>
 
 <h2 id="label-Setup">Setup</h2>
 
@@ -122,7 +143,7 @@ this puppet module.</p>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
-<p>TODO: windows support (powershell)</p>
+<p>TODO: windows support for pp_role (powershell)</p>
 </li><li>
 <p>Linux for support requires <code>openssl</code> and <code>awk</code> in the
 path</p>

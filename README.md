@@ -16,10 +16,16 @@
 
 Just a very simple module to convert:
 
+### roles
 * A role fact `role` into a `safe_role` 
 * A trusted fact role `pp_role` into `safe_pp_role`
 
 The conversion process is to convert double colons (`::`) into slashes (`/`).
+
+### os
+* A normalised `safe_os` fact:
+    * All values lowercased (eg: `RedHat` -> `redhat`)
+    * All spaces removed from values (eg `2012 R2` -> `2012_r2`)
 
 This lets us write `hiera.yaml` files that look like this:
 
@@ -30,19 +36,27 @@ This lets us write `hiera.yaml` files that look like this:
   - "app_tier/%{app_tier}".yaml
   - "datacenter/%{datacenter}".yaml
   - "env/%{environment}".yaml
+  - "os/%{facts.safe_os.family}_%{facts.safe_os.release.major}.yaml"
   - common.yaml
 ```
 
-...So that for a node that has a `role` or `pp_role` role value of `foo::bar::baz` will attempt to read hiera data from
-`role/foo/bar/baz.yaml`.  Of course `::` in filenames is a terrible idea but it works at a push on Linux.  For those not
-living the dream, using this character in filenames will result in git repositories that are impossible to checkout from
-git, hence the need for this puppet module.
+This means that:
+* A node that has a `role` or `pp_role` value of `foo::bar::baz` will attempt to read hiera data from
+`role/foo/bar/baz.yaml` (instead of `role/foo::bar::baz.yaml`)
+* A windows 2012 R2 node would attempt to read from `os/windows_2012_r2.yaml` (instead of `os/windows_2012 R2.yaml`)
+* A RHEL 7 node would attempt to read read from `os/redhat_7.yaml` (instead of `os/RedHat_7.yaml`)
+
+This resolves the problems that:
+* `::` in filenames only works on linux
+* Windows and MacOS have case insensitive filesystems which can result in broken git repositories when files are checked
+    in accidentally that differ only by case
+* Filenames need spaces when dealing with some Windows variants
 
 ## Setup
 Just install the module and the facts will be created if applicable
 
 ## Limitations
-* TODO: windows support (powershell)
+* TODO: windows support for pp_role (powershell)
 * Linux for support requires `openssl` and `awk` in the path
 
 ## Development

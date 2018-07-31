@@ -5,3 +5,7 @@
 @test "safe_pp_role converted role OK" {
   grep "role/linux/oracle_server" /tmp/safe_pp_role.txt
 }
+
+@test "safe_os converted os OK" {
+  grep "redhat" /tmp/safe_os.txt
+}

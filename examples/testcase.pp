@@ -15,3 +15,11 @@ file { "/tmp/safe_pp_role.txt":
   group   => 'root',
   mode    => '0644',
 }
+
+file { "/tmp/safe_os.txt":
+  ensure  => file,
+  content => "${facts['safe_os']}",
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
+}
