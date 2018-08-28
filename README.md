@@ -55,7 +55,6 @@ This resolves the problems that:
 Just install the module and the facts will be created if applicable
 
 ## Limitations
-* TODO: windows support for pp_role (powershell)
 * Requires `openssl` in the `PATH`
 
 ## Development
