@@ -1,4 +1,5 @@
-# A _safe_ version of the `os` structured fact
+# @summary A _safe_ version of the `os` structured fact
+#
 # This is required because the built-in fact suffers several idiosyncrasies:
 # * Inconsistent capitalisation
 # * Unwated spaces

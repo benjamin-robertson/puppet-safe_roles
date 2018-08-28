@@ -1,6 +1,6 @@
 {
   "name": "geoffwilliams-safe_roles",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "geoffwilliams",
   "summary": "refomat any `role` or `pp_role` fact into a filesystem path",
   "license": "Apache-2.0",
