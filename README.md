@@ -8,7 +8,7 @@
     * [Setup requirements](#setup-requirements)
     * [Beginning with safe_roles](#beginning-with-safe_roles)
 1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Reference - An under-the-hood peek at what the module is doing and how](REFERENCE.md)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
