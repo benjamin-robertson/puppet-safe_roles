@@ -5,7 +5,7 @@ Facter.add(:safe_pp_role) do
     safe_pp_role = nil
 
     cert_data = Facter::Core::Execution.exec(
-        "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Facter.value(:fqdn).downcase}.pem"
+        "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
     ).to_s.split(/\n/)
 
     cert_data.each_with_index do |value, index|
