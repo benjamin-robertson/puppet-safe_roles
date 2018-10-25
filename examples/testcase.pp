@@ -18,7 +18,7 @@ file { "/tmp/safe_pp_role.txt":
 
 file { "/tmp/safe_os.txt":
   ensure  => file,
-  content => "${facts['safe_os']}",
+  content => String($facts['safe_os']),
   owner   => 'root',
   group   => 'root',
   mode    => '0644',
