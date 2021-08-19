@@ -17,13 +17,23 @@
 # Which this fact enables by downcasing all strings and replacing all spaces with underscores
 Facter.add(:safe_os) do
   os = Facter.value(:os)
-  thunk = lambda { |key,value|
-    case value
-    when String then value.downcase! ; value.gsub!(/ /, "_")
-    when Hash then value.each(&thunk)
-    end
-  }
+
+  def safe_os_cleanup(hash)
+    hash.map { |k,v|
+      case v
+      when Hash then
+        value = safe_os_cleanup(v)
+      when String then
+        value = v.dup
+        value.downcase! ; value.gsub!(/ /, "_")
+      else
+        value = v.to_s
+      end
+      [k, value]
+    }.to_h
+  end
+
   setcode do
-    os.each(&thunk)
+    safe_os_cleanup(os)
   end
 end
