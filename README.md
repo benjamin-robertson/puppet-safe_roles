@@ -18,6 +18,8 @@ Just a very simple module to convert:
 ### roles
 * A role fact `role` into a `safe_role` 
 * A trusted fact role `pp_role` into `safe_pp_role`
+  
+  **Warning**: `safe_pp_role` is _**NOT**_ a trusted fact and can be overwritten by the agent!
 
 The conversion process is to convert double colons (`::`) into slashes (`/`).
 
