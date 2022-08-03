@@ -19,7 +19,9 @@ Facter.add(:safe_pp_role) do
 
     certificate = OpenSSL::X509::Certificate.new cert_data
 
-    extentions = read_extention(certificate.extensions)
+    result = read_extention(certificate.extensions)
+
+    puts result
 
     safe_pp_role = cert_data[index+1].strip.gsub(/::/, '/').gsub(/^../, '')
 
