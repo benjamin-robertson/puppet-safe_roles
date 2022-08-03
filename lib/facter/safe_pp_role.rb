@@ -31,8 +31,8 @@ Facter.add(:safe_pp_role) do
   
       safe_pp_role
     else
-      puts 'I am a dumb facter'
-      'facter is dumb dumb'
+      puts 'why am i here?'
+      'facter is dumb'
     end
   end
 end
