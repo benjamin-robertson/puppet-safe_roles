@@ -1,5 +1,5 @@
 require 'puppet'
-require 'OpenSSL'
+require 'openssl'
 Facter.add(:safe_pp_role) do
   setcode do
     # pick out the custom OID for pp_role, convert `:` to `_` and strip the leading `..` from the capture
