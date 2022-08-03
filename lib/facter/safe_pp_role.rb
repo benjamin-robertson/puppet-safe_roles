@@ -25,7 +25,7 @@ Facter.add(:safe_pp_role) do
     puts result
     puts result.class
 
-    if result.class != 'String' 
+    if result.is_a? 'String' 
       puts 'I am a dumb facter'
       return 'facter is dumb dumb'
     end
