@@ -7,7 +7,7 @@ Facter.add(:safe_pp_role) do
 
     def read_extention(extentions)
       extentions.each do | element |
-        if element.oid == 'pp_role' or == '1.3.6.1.4.1.34380.1.1.13'
+        if element.oid == 'pp_role' or element.oid == '1.3.6.1.4.1.34380.1.1.13'
           arr = (element.to_s).split(' ')
           result = arr[2,arr.length].join
           return result
