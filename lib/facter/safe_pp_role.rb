@@ -14,9 +14,9 @@ Facter.add(:safe_pp_role) do
 
     puts extentions
 
-    extentions.each | element | {
+    extentions.each do | element |
       puts element
-    }
+    end
 
     # cert_data = Facter::Core::Execution.exec(
     #     "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
