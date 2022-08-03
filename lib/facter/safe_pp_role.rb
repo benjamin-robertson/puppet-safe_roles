@@ -3,7 +3,6 @@ require 'openssl'
 Facter.add(:safe_pp_role) do
   setcode do
     # pick out the custom OID for pp_role, convert `:` to `_` and strip the leading `..` from the capture
-    safe_pp_role = nil
 
     def read_extention(extentions)
       extentions.each do | element |
@@ -13,6 +12,8 @@ Facter.add(:safe_pp_role) do
           return result
         end
       end
+      # element not found
+      return nil
     end
 
     puts "#{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
@@ -22,18 +23,12 @@ Facter.add(:safe_pp_role) do
     certificate = OpenSSL::X509::Certificate.new cert_data
 
     result = read_extention(certificate.extensions)
-
-    puts result
-    puts result.class
-
-    if result.is_a? String
-      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
-      puts safe_pp_role
-  
-      safe_pp_role
+    if result == nil
+      safe_pp_role = nil
     else
-      puts 'why am i here?'
-      result
+      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
     end
+  
+    safe_pp_role
   end
 end
