@@ -26,13 +26,13 @@ Facter.add(:safe_pp_role) do
     puts result.class
 
     if result.is_a? String
+      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
+      puts safe_pp_role
+  
+      safe_pp_role
+    else
       puts 'I am a dumb facter'
-      return 'facter is dumb dumb'
+      'facter is dumb dumb'
     end
-
-    safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
-    puts safe_pp_role
-
-    safe_pp_role
   end
 end
