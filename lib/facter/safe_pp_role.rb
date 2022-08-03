@@ -13,8 +13,6 @@ Facter.add(:safe_pp_role) do
     extentions = certificate.extensions
 
     extentions.each do | element |
-      puts element
-      puts element.oid
       if element.oid == 'pp_role'
         puts 'found'
         puts element.value
