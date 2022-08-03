@@ -9,7 +9,6 @@ Facter.add(:safe_pp_role) do
         if element.oid == 'pp_role'
           arr = (element.to_s).split(' ')
           result = arr[2,arr.length].join
-          puts "results are #{result}"
           return result
         end
       end
@@ -25,7 +24,7 @@ Facter.add(:safe_pp_role) do
 
     puts result
 
-    safe_pp_role = cert_data[index+1].strip.gsub(/::/, '/').gsub(/^../, '')
+    safe_pp_role = result[index+1].strip.gsub(/::/, '/').gsub(/^../, '')
 
     # cert_data = Facter::Core::Execution.exec(
     #     "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
