@@ -34,7 +34,7 @@ Facter.add(:safe_pp_role) do
       safe_pp_role
     else
       puts 'why am i here?'
-      'facter is dumb'
+      result
     end
   end
 end
