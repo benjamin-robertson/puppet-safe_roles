@@ -23,6 +23,7 @@ Facter.add(:safe_pp_role) do
     result = read_extention(certificate.extensions)
 
     puts result
+    puts result.class
 
     safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
 
