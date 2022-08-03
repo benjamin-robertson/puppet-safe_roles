@@ -10,7 +10,9 @@ Facter.add(:safe_pp_role) do
 
     certificate = OpenSSL::X509::Certificate.new cert_data
 
-    puts certificate.extensions('pp_role')
+    extentions = certificate.extensions
+
+    puts extentions
 
     # cert_data = Facter::Core::Execution.exec(
     #     "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
