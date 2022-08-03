@@ -16,8 +16,6 @@ Facter.add(:safe_pp_role) do
       return nil
     end
 
-    puts "#{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
-
     cert_data = File.open "#{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
 
     certificate = OpenSSL::X509::Certificate.new cert_data
