@@ -16,6 +16,7 @@ Facter.add(:safe_pp_role) do
       if element.oid == 'pp_role'
         puts 'found'
         puts element.value
+        puts element.to_s
       end
     end
 
