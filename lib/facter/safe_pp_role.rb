@@ -14,7 +14,7 @@ Facter.add(:safe_pp_role) do
 
     puts extentions
 
-    extentions.each | String element | {
+    extentions.each | element | {
       puts element
     }
 
