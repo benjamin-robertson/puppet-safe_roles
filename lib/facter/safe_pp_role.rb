@@ -15,6 +15,10 @@ Facter.add(:safe_pp_role) do
     extentions.each do | element |
       puts element
       puts element.oid
+      if element.oid == 'pp_role'
+        puts 'found'
+        puts element.value
+      end
     end
 
     # cert_data = Facter::Core::Execution.exec(
