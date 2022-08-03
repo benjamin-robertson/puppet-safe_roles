@@ -9,6 +9,8 @@ Facter.add(:safe_pp_role) do
         if element.oid == 'pp_role'
           arr = (element.to_s).split(' ')
           result = arr[2,arr.length].join
+          puts "results are #{result}"
+          return result
         end
       end
     end
