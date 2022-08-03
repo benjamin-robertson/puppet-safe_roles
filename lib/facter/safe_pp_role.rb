@@ -26,6 +26,7 @@ Facter.add(:safe_pp_role) do
     puts result.class
 
     safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
+    puts safe_pp_role
 
     # cert_data = Facter::Core::Execution.exec(
     #     "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
