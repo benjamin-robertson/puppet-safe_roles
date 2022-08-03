@@ -4,25 +4,24 @@ Facter.add(:safe_pp_role) do
     # pick out the custom OID for pp_role, convert `:` to `_` and strip the leading `..` from the capture
     safe_pp_role = nil
 
+    def read_extention(extentions)
+      extentions.each do | element |
+        if element.oid == 'pp_role'
+          arr = (element.to_s).split(' ')
+          result = arr[2,arr.length].join
+        end
+      end
+    end
+
     puts "#{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
 
     cert_data = File.open "#{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
 
     certificate = OpenSSL::X509::Certificate.new cert_data
 
-    extentions = certificate.extensions
+    extentions = read_extention(certificate.extensions)
 
-    extentions.each do | element |
-      if element.oid == 'pp_role'
-        puts 'found'
-        puts element.value
-        puts element.to_s
-        arr = (element.to_s).split(' ')
-        puts 'arr 3 is'
-        puts arr[2]
-        puts arr[1,arr.length].join
-      end
-    end
+    safe_pp_role = cert_data[index+1].strip.gsub(/::/, '/').gsub(/^../, '')
 
     # cert_data = Facter::Core::Execution.exec(
     #     "openssl x509 -text < #{Puppet.settings[:certdir]}/#{Puppet.settings[:certname].downcase}.pem"
