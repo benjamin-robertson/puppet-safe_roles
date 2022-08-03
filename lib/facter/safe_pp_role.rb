@@ -20,7 +20,7 @@ Facter.add(:safe_pp_role) do
         arr = (element.to_s).split(' ')
         puts 'arr 3 is'
         puts arr[2]
-        puts arr[1,arr.length].to_s
+        puts arr[1,arr.length].join
       end
     end
 
