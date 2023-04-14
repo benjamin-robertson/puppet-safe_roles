@@ -27,7 +27,7 @@ Facter.add(:safe_pp_role) do
     else
       # puts "Result is: #{result}"
       # safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^\./, '').gsub(/^\.\n/, '').gsub(/^../, '')
-      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/[^a-zA-Z\d\/_-:]/, '')
+      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/[^a-zA-Z\d\/_-]/, '')
     end
   
     safe_pp_role
