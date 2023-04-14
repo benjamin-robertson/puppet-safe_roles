@@ -8,6 +8,7 @@ Facter.add(:safe_pp_role) do
       extentions.each do | element |
         if element.oid == 'pp_role' or element.oid == '1.3.6.1.4.1.34380.1.1.13'
           arr = (element.to_s).split(' ')
+          # arr.each | str | { puts "#{str}" }
           result = arr[2,arr.length].join
           return result
         end
@@ -24,7 +25,7 @@ Facter.add(:safe_pp_role) do
     if result == nil
       safe_pp_role = nil
     else
-      puts "Result is: #{results}"
+      puts "Result is: #{result}"
       safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
     end
   
