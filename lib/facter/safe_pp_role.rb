@@ -24,7 +24,7 @@ Facter.add(:safe_pp_role) do
     if result == nil
       safe_pp_role = nil
     else
-      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/^../, '')
+      safe_pp_role = result.strip.gsub(/::/, '/').gsub(/[^a-zA-Z\d\/_-]/, '')
     end
   
     safe_pp_role
